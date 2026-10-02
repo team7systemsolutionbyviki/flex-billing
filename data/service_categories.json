@@ -1,0 +1,38 @@
+[
+  {
+    "id": "cat1",
+    "name": "Flex",
+    "createdAt": "2026-10-02T09:08:30.046Z",
+    "updatedAt": "2026-10-02T09:08:30.046Z"
+  },
+  {
+    "id": "cat2",
+    "name": "Photo",
+    "createdAt": "2026-10-02T09:08:30.046Z",
+    "updatedAt": "2026-10-02T09:08:30.046Z"
+  },
+  {
+    "id": "cat3",
+    "name": "Card",
+    "createdAt": "2026-10-02T09:08:30.047Z",
+    "updatedAt": "2026-10-02T09:08:30.047Z"
+  },
+  {
+    "id": "cat4",
+    "name": "Xerox",
+    "createdAt": "2026-10-02T09:08:30.047Z",
+    "updatedAt": "2026-10-02T09:08:30.047Z"
+  },
+  {
+    "id": "cat5",
+    "name": "Lamination",
+    "createdAt": "2026-10-02T09:08:30.047Z",
+    "updatedAt": "2026-10-02T09:08:30.047Z"
+  },
+  {
+    "id": "cat6",
+    "name": "Other",
+    "createdAt": "2026-10-02T09:08:30.047Z",
+    "updatedAt": "2026-10-02T09:08:30.047Z"
+  }
+]

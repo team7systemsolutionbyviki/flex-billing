@@ -1,0 +1,68 @@
+[
+  {
+    "id": "ec1",
+    "name": "Rent",
+    "createdAt": "2026-10-02T09:20:39.035Z",
+    "updatedAt": "2026-10-02T09:20:39.035Z"
+  },
+  {
+    "id": "ec2",
+    "name": "Electricity",
+    "createdAt": "2026-10-02T09:20:39.036Z",
+    "updatedAt": "2026-10-02T09:20:39.036Z"
+  },
+  {
+    "id": "ec3",
+    "name": "Salary",
+    "createdAt": "2026-10-02T09:20:39.036Z",
+    "updatedAt": "2026-10-02T09:20:39.036Z"
+  },
+  {
+    "id": "ec4",
+    "name": "Transport",
+    "createdAt": "2026-10-02T09:20:39.036Z",
+    "updatedAt": "2026-10-02T09:20:39.036Z"
+  },
+  {
+    "id": "ec5",
+    "name": "Internet",
+    "createdAt": "2026-10-02T09:20:39.036Z",
+    "updatedAt": "2026-10-02T09:20:39.036Z"
+  },
+  {
+    "id": "ec6",
+    "name": "Phone",
+    "createdAt": "2026-10-02T09:20:39.036Z",
+    "updatedAt": "2026-10-02T09:20:39.036Z"
+  },
+  {
+    "id": "ec7",
+    "name": "Maintenance",
+    "createdAt": "2026-10-02T09:20:39.036Z",
+    "updatedAt": "2026-10-02T09:20:39.036Z"
+  },
+  {
+    "id": "ec8",
+    "name": "Ink",
+    "createdAt": "2026-10-02T09:20:39.037Z",
+    "updatedAt": "2026-10-02T09:20:39.037Z"
+  },
+  {
+    "id": "ec9",
+    "name": "Material",
+    "createdAt": "2026-10-02T09:20:39.037Z",
+    "updatedAt": "2026-10-02T09:20:39.037Z"
+  },
+  {
+    "id": "ec10",
+    "name": "Repair",
+    "createdAt": "2026-10-02T09:20:39.037Z",
+    "updatedAt": "2026-10-02T09:20:39.037Z"
+  },
+  {
+    "id": "ec11",
+    "name": "Other",
+    "createdAt": "2026-10-02T09:20:39.037Z",
+    "updatedAt": "2026-10-02T09:20:39.037Z"
+  }
+]

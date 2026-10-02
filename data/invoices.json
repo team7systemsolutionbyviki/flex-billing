@@ -1,0 +1,48 @@
+[
+  {
+    "id": "i1",
+    "no": "INV-001",
+    "date": "2026-09-30T17:14:26.426Z",
+    "customerId": "c1",
+    "total": 1200,
+    "paid": 1200,
+    "balance": 0
+  },
+  {
+    "id": "i2",
+    "no": "INV-002",
+    "date": "2026-09-30T17:14:26.426Z",
+    "customerId": "c3",
+    "total": 3500,
+    "paid": 2000,
+    "balance": 1500
+  },
+  {
+    "no": "INV-95805",
+    "date": "2026-10-01T16:48:08.715Z",
+    "customerId": "c1",
+    "customerName": "Rahul Sharma",
+    "items": [
+      {
+        "id": "item_1790788473522",
+        "serviceId": "s3",
+        "name": "4x6 Photo Print",
+        "qty": 1,
+        "rate": 10,
+        "amount": 10,
+        "meta": "",
+        "notes": ""
+      }
+    ],
+    "subtotal": 10,
+    "discount": 0,
+    "gst": 1.1,
+    "total": 11,
+    "paid": 11,
+    "method": "CASH",
+    "balance": 0,
+    "id": "1790873288715441",
+    "createdAt": "2026-10-01T16:48:08.715Z",
+    "updatedAt": "2026-10-01T16:48:08.715Z"
+  }
+]

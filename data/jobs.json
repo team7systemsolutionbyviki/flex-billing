@@ -1,0 +1,125 @@
+[
+  {
+    "id": "j1",
+    "customerId": "c1",
+    "serviceId": "s1",
+    "status": "DELIVERED",
+    "date": "2026-09-30T17:14:26.426Z",
+    "total": 1200,
+    "advance": 500,
+    "updatedAt": "2026-10-01T16:44:41.911Z"
+  },
+  {
+    "id": "j2",
+    "customerId": "c2",
+    "serviceId": "s4",
+    "status": "PRINTING",
+    "date": "2026-09-30T17:14:26.426Z",
+    "total": 500,
+    "advance": 500
+  },
+  {
+    "id": "1790788499002199",
+    "date": "2026-09-30T17:14:59.002Z",
+    "customerId": "c1",
+    "items": [
+      {
+        "id": "item_1790788473522",
+        "serviceId": "s3",
+        "name": "4x6 Photo Print",
+        "qty": 1,
+        "rate": 10,
+        "amount": 10,
+        "meta": "",
+        "notes": ""
+      }
+    ],
+    "total": 12,
+    "advance": 0,
+    "status": "DELIVERED",
+    "createdAt": "2026-09-30T17:14:59.002Z",
+    "updatedAt": "2026-10-01T16:48:08.716Z"
+  },
+  {
+    "id": "1790874353827234",
+    "date": "2026-10-01T17:05:53.826Z",
+    "customerId": "c3",
+    "items": [
+      {
+        "id": "item_1790874344939",
+        "serviceId": "s4",
+        "name": "Visiting Card (1000pcs)",
+        "qty": 2,
+        "rate": 500,
+        "amount": 1000,
+        "meta": "",
+        "notes": ""
+      }
+    ],
+    "total": 1000,
+    "advance": 500,
+    "status": "DESIGNING",
+    "createdAt": "2026-10-01T17:05:53.827Z",
+    "updatedAt": "2026-10-01T17:06:03.220Z"
+  },
+  {
+    "id": "1790874875155628",
+    "date": "2026-10-01T17:14:35.155Z",
+    "dueDate": "2026-10-02T17:32:00.000Z",
+    "customerId": "c3",
+    "items": [
+      {
+        "id": "item_1790874824451",
+        "serviceId": "s4",
+        "name": "Visiting Card (1000pcs)",
+        "qty": 1,
+        "rate": 500,
+        "amount": 500,
+        "meta": "",
+        "notes": ""
+      }
+    ],
+    "total": 500,
+    "advance": 100,
+    "status": "NEW",
+    "notified_30": false,
+    "notified_overdue": false,
+    "createdAt": "2026-10-01T17:14:35.155Z",
+    "updatedAt": "2026-10-01T17:14:35.155Z"
+  },
+  {
+    "id": "1790876371724570",
+    "date": "2026-10-01T17:39:31.724Z",
+    "dueDate": "2026-10-02T17:39:00.000Z",
+    "customerId": "c3",
+    "items": [
+      {
+        "id": "item_1790876356299",
+        "serviceId": "s2",
+        "name": "Star Flex",
+        "qty": 1,
+        "rate": 25,
+        "amount": 25,
+        "meta": "1ft x 1ft = 1.00 Sq.Ft",
+        "notes": ""
+      },
+      {
+        "id": "item_1790876357770",
+        "serviceId": "s3",
+        "name": "4x6 Photo Print",
+        "qty": 1,
+        "rate": 10,
+        "amount": 10,
+        "meta": "",
+        "notes": ""
+      }
+    ],
+    "total": 39,
+    "advance": 0,
+    "status": "NEW",
+    "notified_30": false,
+    "notified_overdue": false,
+    "createdAt": "2026-10-01T17:39:31.725Z",
+    "updatedAt": "2026-10-01T17:39:31.725Z"
+  }
+]

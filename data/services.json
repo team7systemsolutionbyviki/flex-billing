@@ -1,0 +1,42 @@
+[
+  {
+    "id": "s1",
+    "code": "FLX-1",
+    "name": "Normal Flex",
+    "category": "Flex",
+    "unit": "Sq.Ft",
+    "rate": 12,
+    "dealerRate": 8,
+    "wholesaleRate": 7
+  },
+  {
+    "id": "s2",
+    "code": "FLX-2",
+    "name": "Star Flex",
+    "category": "Flex",
+    "unit": "Sq.Ft",
+    "rate": 25,
+    "dealerRate": 18,
+    "wholesaleRate": 15
+  },
+  {
+    "id": "s3",
+    "code": "PHT-1",
+    "name": "4x6 Photo Print",
+    "category": "Photo",
+    "unit": "PCS",
+    "rate": 10,
+    "dealerRate": 7,
+    "wholesaleRate": 5
+  },
+  {
+    "id": "s4",
+    "code": "VC-1",
+    "name": "Visiting Card (1000pcs)",
+    "category": "Card",
+    "unit": "BOX",
+    "rate": 500,
+    "dealerRate": 350,
+    "wholesaleRate": 300
+  }
+]

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T7 PRINT BILLING</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/billing.css">
+    <!-- html2pdf for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        if (!localStorage.getItem('t7_logged_in')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+    <!-- AMC Lock Screen Overlay -->
+    <div id="amc-lock-screen" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-main); z-index:9999; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+        <i class="ri-error-warning-fill" style="font-size:4rem; color:var(--danger); margin-bottom:1rem;"></i>
+        <h1 style="color:var(--text-main); margin-bottom:1rem;">AMC Plan Expired</h1>
+        <p style="color:var(--text-muted); font-size:1.2rem; max-width:600px; margin-bottom:2rem;">Your Annual Maintenance Contract (AMC) has expired. Please contact your system provider to renew your plan and restore access.</p>
+        <button class="btn btn-primary" style="background:#25D366; border-color:#25D366; font-size:1.2rem; padding:1rem 2rem;" onclick="window.sendHelpMessage()">
+            <i class="ri-whatsapp-line"></i> Contact Support
+        </button>
+        
+        <button class="btn btn-secondary" style="margin-top:2rem;" onclick="window.logout()"><i class="ri-logout-box-r-line"></i> Logout</button>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="ri-printer-cloud-fill"></i>
+                    <span>T7 PRINT</span>
+                </div>
+                <button class="toggle-btn" id="sidebar-toggle"><i class="ri-menu-fold-line"></i></button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-target="dashboard-view">
+                    <i class="ri-dashboard-3-line"></i> <span>Dashboard <small style="opacity:0.6; font-size:0.75em; margin-left:0.5rem;">[Alt+1]</small></span>
+                </a>
+                <a href="#billing" class="nav-item" data-target="billing-view">
+                    <i class="ri-bill-line"></i> <span>Billing <small style="opacity:0.6; font-size:0.75em; margin-left:0.5rem;">[Alt+2]</small></span>
+                </a>
+                <a href="#jobs" class="nav-item" data-target="jobs-view">
+                    <i class="ri-task-line"></i> <span>Jobs <small style="opacity:0.6; font-size:0.75em; margin-left:0.5rem;">[Alt+3]</small></span>
+                </a>
+                <a href="#customers" class="nav-item" data-target="customers-view">
+                    <i class="ri-user-3-line"></i> <span>Customers <small style="opacity:0.6; font-size:0.75em; margin-left:0.5rem;">[Alt+4]</small></span>
+                </a>
+                <a href="#services" class="nav-item" data-target="services-view">
+                    <i class="ri-price-tag-3-line"></i> <span>Services <small style="opacity:0.6; font-size:0.75em; margin-left:0.5rem;">[Alt+5]</small></span>
+                </a>
+                <a href="#inventory" class="nav-item" data-target="inventory-view">
+                    <i class="ri-inbox-archive-line"></i> <span>Inventory <small style="opacity:0.6; font-size:0.75em; margin-left:0.5rem;">[Alt+6]</small></span>
+                </a>
+                <a href="#purchases" class="nav-item" data-target="purchases-view">
+                    <i class="ri-shopping-cart-line"></i> <span>Purchases <small style="opacity:0.6; font-size:0.75em; margin-left:0.5rem;">[Alt+7]</small></span>
+                </a>
+                <a href="#expenses" class="nav-item" data-target="expenses-view">
+                    <i class="ri-wallet-3-line"></i> <span>Expenses <small style="opacity:0.6; font-size:0.75em; margin-left:0.5rem;">[Alt+8]</small></span>
+                </a>
+                <a href="#reports" class="nav-item" data-target="reports-view">
+                    <i class="ri-bar-chart-box-line"></i> <span>Reports <small style="opacity:0.6; font-size:0.75em; margin-left:0.5rem;">[Alt+9]</small></span>
+                </a>
+                <a href="#settings" class="nav-item" data-target="settings-view">
+                    <i class="ri-settings-4-line"></i> <span>Settings <small style="opacity:0.6; font-size:0.75em; margin-left:0.5rem;">[Alt+0]</small></span>
+                </a>
+                
+                <div class="developer-credit" style="margin-top: 1.5rem; padding: 1rem 1.5rem; font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; border-top: 1px solid var(--border-color);">
+                    <div style="font-weight: 600; color: var(--text-main); margin-bottom: 0.25rem;">Developed by Vignesh</div>
+                    <div style="display:flex; align-items:center; gap:0.3rem;"><i class="ri-phone-line"></i> 9360039283, 7603979339</div>
+                    <div style="margin-top: 0.25rem;">
+                        <a href="https://team7systemsolutionbyviki.github.io/TeamSevenSystemSolution/" target="_blank" style="color: var(--primary); text-decoration: none; display:flex; align-items:center; gap:0.3rem;">
+                            <i class="ri-global-line"></i> Visit Website
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info" style="display: flex; align-items: center; width: 100%;">
+                    <div class="avatar" id="sidebar-avatar">SA</div>
+                    <div class="details" style="flex: 1;">
+                        <span class="name" id="sidebar-name">Super Admin</span>
+                        <span class="role">Administrator</span>
+                    </div>
+                    <button class="icon-btn logout-btn" onclick="window.logout()" title="Logout" style="color: var(--danger);">
+                        <i class="ri-logout-box-r-line"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2 id="page-title">Dashboard</h2>
+                </div>
+                <div class="header-right">
+                    <button class="icon-btn theme-toggle" id="theme-toggle">
+                        <i class="ri-moon-line"></i>
+                    </button>
+                    <button class="icon-btn notification-btn" onclick="window.showNotifications()">
+                        <i class="ri-notification-3-line"></i>
+                        <span class="badge" id="notification-badge" style="display:none;">0</span>
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.sendHelpMessage()" style="background:#25D366; border-color:#25D366; color:#fff; margin-right: 0.5rem;">
+                        <i class="ri-whatsapp-line"></i> Help
+                    </button>
+                    <button class="btn btn-primary" onclick="window.location.hash='#billing'">
+                        <i class="ri-add-line"></i> New Bill <small style="opacity:0.8; margin-left:0.25rem;">[F2]</small>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Views -->
+            <div class="views-container">
+                <!-- Dashboard View -->
+                <section id="dashboard-view" class="view-section active">
+                    <!-- Loaded dynamically via dashboard.js -->
+                </section>
+
+                <!-- Billing View -->
+                <section id="billing-view" class="view-section">
+                    <!-- Loaded dynamically via billing.js -->
+                </section>
+
+                <!-- Jobs View -->
+                <section id="jobs-view" class="view-section">
+                    <!-- Loaded dynamically via jobs.js -->
+                </section>
+
+                <!-- Customers View -->
+                <section id="customers-view" class="view-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Customer List</h3>
+                            <button class="btn btn-primary" id="btn-add-customer"><i class="ri-add-line"></i> Add Customer</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="customers-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Mobile</th>
+                                            <th>Type</th>
+                                            <th>Balance</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Populated via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Services View -->
+                <section id="services-view" class="view-section">
+                     <div class="card">
+                        <div class="card-header">
+                            <h3>Services & Products</h3>
+                            <button class="btn btn-primary"><i class="ri-add-line"></i> Add Service</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="services-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Rate</th>
+                                            <th>Unit</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings View -->
+                <section id="settings-view" class="view-section">
+                    <!-- Populated via settings.js -->
+                    <div class="card">
+                        <div class="card-header"><h3>System Settings</h3></div>
+                        <div class="card-body">
+                            <button class="btn btn-danger" onclick="Settings.promptClearData()">Clear All Data</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Other views placeholders -->
+                <section id="inventory-view" class="view-section"><h2>Inventory Management (Coming Soon)</h2></section>
+                <section id="purchases-view" class="view-section"><h2>Purchases (Coming Soon)</h2></section>
+                <section id="expenses-view" class="view-section"><h2>Expenses (Coming Soon)</h2></section>
+                <section id="reports-view" class="view-section"><h2>Reports (Coming Soon)</h2></section>
+
+            </div>
+        </main>
+    </div>
+
+            <!-- Notification Modal -->
+            <div class="modal-overlay" id="notification-modal">
+                <div class="modal-content" style="max-width: 400px; position: absolute; top: 60px; right: 20px; transform: none; margin:0;">
+                    <div class="modal-header">
+                        <h3>Notifications</h3>
+                        <button class="icon-btn" onclick="document.getElementById('notification-modal').classList.remove('active')"><i class="ri-close-line"></i></button>
+                    </div>
+                    <div class="modal-body" id="notification-list" style="max-height: 400px; overflow-y: auto; padding: 0.5rem 1rem;">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+            </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/billing.js"></script>
+    <script src="js/customers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/jobs.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/reports.js"></script>
+    <script src="js/expenses.js"></script>
+    <script src="js/purchases.js"></script>
+    <script src="js/inventory.js"></script>
+</body>
+</html>
