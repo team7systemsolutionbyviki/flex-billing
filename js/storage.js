@@ -40,17 +40,16 @@ const Storage = {
         }
 
         this.collections.forEach(col => {
-            // Migrate legacy localStorage data if backend is empty
-            const legacyData = localStorage.getItem(this.prefix + col);
-            if (!backendHasData && legacyData) {
-                this.cache[col] = JSON.parse(legacyData);
-                this.set(col, this.cache[col]); // pushes to backend
+            const localData = localStorage.getItem(this.prefix + col);
+            
+            if (backendHasData && this.cache[col]) {
+                localStorage.setItem(this.prefix + col, JSON.stringify(this.cache[col]));
+            } else if (!backendHasData && localData) {
+                this.cache[col] = JSON.parse(localData);
             } else if (!this.cache[col]) {
                 this.cache[col] = this.getDefault(col);
-                this.set(col, this.cache[col]); // initializes backend file
+                this.set(col, this.cache[col]);
             }
-            // Permanently remove data from localStorage
-            localStorage.removeItem(this.prefix + col);
         });
         
         // Initial setup for shop settings if empty
@@ -77,9 +76,11 @@ const Storage = {
         return this.cache[collection] || this.getDefault(collection);
     },
 
-    // Save full collection
     set(collection, data) {
         this.cache[collection] = data;
+        
+        // Save to localStorage as the primary persistence mechanism
+        localStorage.setItem(this.prefix + collection, JSON.stringify(data));
         
         const customPath = localStorage.getItem('t7_data_path') || '';
         const urlParams = customPath ? `?path=${encodeURIComponent(customPath)}` : '';

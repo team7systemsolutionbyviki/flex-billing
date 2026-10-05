@@ -62,7 +62,10 @@ window.Billing = {
                 <div class="pos-right">
                     <div class="cart-header">
                         <h3 style="font-size:1rem; font-weight:600;">Current Invoice</h3>
-                        <button class="icon-btn" onclick="Billing.clearCart()"><i class="ri-delete-bin-line"></i></button>
+                        <div>
+                            <button class="icon-btn" onclick="Billing.showLoadQuoteModal()" title="Load Quotation"><i class="ri-file-search-line"></i></button>
+                            <button class="icon-btn" onclick="Billing.clearCart()" title="Clear Cart"><i class="ri-delete-bin-line"></i></button>
+                        </div>
                     </div>
                     <div class="cart-items" id="cart-items-container">
                         <!-- Cart Items -->
@@ -165,6 +168,31 @@ window.Billing = {
                     <div class="modal-footer">
                         <button class="btn btn-secondary" onclick="document.getElementById('job-modal').classList.remove('active')">Cancel</button>
                         <button class="btn btn-primary" onclick="Billing.confirmSaveJob()">Save Job</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load Quote Modal -->
+            <div class="modal-overlay" id="quote-modal">
+                <div class="modal-content" style="max-width: 500px;">
+                    <div class="modal-header">
+                        <h3>Load Quotation</h3>
+                        <button class="icon-btn" onclick="document.getElementById('quote-modal').classList.remove('active')"><i class="ri-close-line"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table" id="quote-table">
+                                <thead>
+                                    <tr>
+                                        <th>Quote No</th>
+                                        <th>Customer</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -424,10 +452,74 @@ window.Billing = {
         this.updateCart();
     },
 
+    updateItemRate(id, newRate) {
+        newRate = parseFloat(newRate) || 0;
+        const item = this.cart.find(i => i.id === id);
+        if (item) {
+            // Find the multiplier (either qty, or qty * area) based on the current amount and rate
+            const multiplier = item.rate > 0 ? (item.amount / item.rate) : item.qty; 
+            item.rate = newRate;
+            item.amount = multiplier * newRate;
+            this.updateCart();
+        }
+    },
+
     clearCart() {
         this.cart = [];
         document.getElementById('cart-discount').value = 0;
         this.updateCart();
+    },
+
+    showLoadQuoteModal() {
+        const quotes = Storage.get('quotations') || [];
+        const tbody = document.querySelector('#quote-table tbody');
+        tbody.innerHTML = '';
+        
+        if (quotes.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No quotations found</td></tr>';
+        } else {
+            // Show recent 10 quotes
+            quotes.sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 10).forEach(q => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${q.no}</td>
+                        <td>${q.customerName}</td>
+                        <td>₹${q.total.toFixed(2)}</td>
+                        <td><button class="btn btn-secondary btn-sm" onclick="Billing.loadQuotation('${q.no}')">Load</button></td>
+                    </tr>
+                `;
+            });
+        }
+        document.getElementById('quote-modal').classList.add('active');
+    },
+
+    loadQuotation(quoteNo) {
+        const quotes = Storage.get('quotations') || [];
+        const quote = quotes.find(q => q.no === quoteNo);
+        if (quote) {
+            this.cart = JSON.parse(JSON.stringify(quote.items)); // deep copy items
+            
+            // Set customer
+            if (quote.customerId) {
+                const cust = this.customers.find(c => c.id === quote.customerId);
+                if (cust) {
+                    this.selectedCustomer = cust;
+                    document.getElementById('selected-customer-display').innerHTML = `
+                        <span>${cust.name} <small>(${cust.type})</small></span>
+                        <button class="icon-btn" style="margin-left:auto; width:24px; height:24px; font-size:1rem;" onclick="Billing.clearCustomer()"><i class="ri-close-line"></i></button>
+                    `;
+                }
+            } else {
+                this.clearCustomer();
+            }
+            
+            // Re-apply discount
+            document.getElementById('cart-discount').value = quote.discount || 0;
+            
+            this.updateCart();
+            document.getElementById('quote-modal').classList.remove('active');
+            showToast('Quotation loaded into cart', 'success');
+        }
     },
 
     updateCart() {
@@ -448,7 +540,9 @@ window.Billing = {
                         <div class="cart-item-title">${item.name}</div>
                         ${metaHtml}
                         ${notesHtml}
-                        <div class="cart-item-meta">${item.qty} x ₹${item.rate}</div>
+                        <div class="cart-item-meta" style="display:flex; align-items:center; gap:0.5rem; margin-top:0.2rem;">
+                            ${item.qty} x ₹<input type="number" value="${item.rate}" step="0.01" style="width: 70px; padding: 2px 4px; border: 1px solid var(--border-color); border-radius: 4px; background:var(--bg-main); color:var(--text-main);" onchange="Billing.updateItemRate('${item.id}', this.value)">
+                        </div>
                     </div>
                     <div class="cart-item-price">₹${item.amount.toFixed(2)}</div>
                     <div class="cart-item-actions">

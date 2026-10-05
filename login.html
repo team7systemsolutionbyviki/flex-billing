@@ -53,7 +53,8 @@
         <div class="login-logo">
             <i class="ri-printer-cloud-fill"></i>
         </div>
-        <h2 class="login-title">T7 PRINT BILLING</h2>
+        <h2 class="login-title">T7-PRINT-BILLING</h2>
+        <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">WELCOME BACK</p>
         
         <form id="login-form">
             <div class="form-group">
@@ -145,8 +146,9 @@
             let authSuccess = false;
             let loggedInUser = user;
 
-            if (user === 'viki' && pass === 'viki1101') {
+            if (user.toLowerCase() === 'viki' && pass.toLowerCase() === 'viki1101') {
                 authSuccess = true;
+                loggedInUser = 'viki';
             } else {
                 try {
                     const customPath = localStorage.getItem('t7_data_path') || '';
